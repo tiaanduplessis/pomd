@@ -1,0 +1,31 @@
+{
+  "name": "pomd",
+  "version": "1.0.0",
+  "description": "Just a good old cli based Pomodoro timer with native notifactions",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/mightyCrow/pomd.git",
+    "type": "git"
+  },
+  "scripts": {
+    "start": "node .",
+    "lint": "standard --fix"
+  },
+  "bin": {
+    "pomd": "./index.js"
+  },
+  "files": [
+    "index.js"
+  ],
+  "author": "Tiaan <tiaanduplessis@hotmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "node-notifier": "^4.6.1",
+    "timrjs": "^0.8.0",
+    "update-notifier": "^1.0.2",
+    "vorpal": "^1.11.4"
+  },
+  "devDependencies": {
+    "standard": "^8.5.0"
+  }
+}
