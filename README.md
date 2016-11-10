@@ -16,6 +16,14 @@ $ npm install -g pomd
 1. Run `pomd` in your terminal.
 2. Run `help` to see the options available.
 
+## example 
+
+```
+$ pomd
+🍅 start --time 20:00 --chill 03:00
+```
+This will start a 20 minute session with 3 minute break
+
 ## TODO
 
 - Add ability to run continues sessions.
