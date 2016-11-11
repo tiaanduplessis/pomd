@@ -30,7 +30,7 @@ This will start a 20 minute session with 3 minute break
 
 ## Thanks to OSS
 
-pomd is made possible through Open Source Software. A very special thanks to all the modules pomd uses [uses](package.json).
+pomd is made possible through Open Source Software. A very special thanks to all the modules pomd [uses](package.json).
 
 ## Contributing
 All Contributions are welcome! Please open up an issue if you would like to help out. :smile:
