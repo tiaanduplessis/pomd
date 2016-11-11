@@ -1,4 +1,5 @@
 #! /usr/bin/env node
+'use strict';
 
 const Timr = require('timrjs')
 const notifier = require('node-notifier')
