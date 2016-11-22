@@ -22,7 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "node-notifier": "^4.6.1",
-    "timrjs": "^0.8.0",
+    "timrjs": "^0.9.0",
     "update-notifier": "^1.0.2",
     "vorpal": "^1.11.4"
   },
