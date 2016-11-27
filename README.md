@@ -26,7 +26,7 @@ This will start a 20 minute session with 3 minute break
 
 ## TODO
 
-- Add ability to run continues sessions.
+- Add ability to run continuous sessions.
 
 ## Thanks to OSS
 
