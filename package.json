@@ -21,7 +21,7 @@
   "author": "Tiaan <tiaanduplessis@hotmail.com>",
   "license": "MIT",
   "dependencies": {
-    "node-notifier": "^4.6.1",
+    "node-notifier": "^5.0.0",
     "timrjs": "^1.0.0",
     "update-notifier": "^1.0.2",
     "vorpal": "^1.11.4"
