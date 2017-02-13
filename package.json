@@ -23,7 +23,7 @@
   "dependencies": {
     "node-notifier": "^5.0.0",
     "timrjs": "^1.0.0",
-    "update-notifier": "^1.0.2",
+    "update-notifier": "^2.0.0",
     "vorpal": "^1.11.4"
   },
   "devDependencies": {
