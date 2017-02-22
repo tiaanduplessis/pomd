@@ -2,10 +2,11 @@
 'use strict'
 
 const Timr = require('./node_modules/timrjs/dist/timr') // https://github.com/joesmith100/timrjs/pull/13
+const path = require('path')
 const notifier = require('node-notifier')
 const vorpal = require('vorpal')()
 const pkg = require('./package.json')
-const stats = require('piggy-bank')('stats.json')
+const stats = require('piggy-bank')(path.join(require('os').homedir(), '.pomd.json'))
 require('update-notifier')({pkg}).notify()
 
 // Default args if none provided
