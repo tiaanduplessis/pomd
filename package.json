@@ -1,6 +1,6 @@
 {
   "name": "pomd",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Just a good old cli based Pomodoro timer with native notifactions",
   "main": "index.js",
   "repository": {
@@ -9,19 +9,27 @@
   },
   "scripts": {
     "start": "node .",
-    "lint": "standard --fix"
+    "lint": "standard",
+    "lint:fix": "standard --fix",
+    "test": "npm run lint"
   },
   "bin": {
-    "pomd": "./index.js"
+    "pomd": "index.js"
   },
   "files": [
     "index.js"
+  ],
+  "keywords": [
+    "pomodoro",
+    "cli",
+    "pomd"
   ],
   "homepage": "https://github.com/tiaanduplessis/pomd",
   "author": "Tiaan <tiaanduplessis@hotmail.com>",
   "license": "MIT",
   "dependencies": {
     "node-notifier": "^5.0.0",
+    "piggy-bank": "^1.0.0",
     "timrjs": "^1.0.0",
     "update-notifier": "^1.0.2",
     "vorpal": "^1.11.4"

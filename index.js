@@ -1,10 +1,11 @@
 #! /usr/bin/env node
-'use strict';
+'use strict'
 
-const Timr = require('timrjs')
+const Timr = require('./node_modules/timrjs/dist/timr') // https://github.com/joesmith100/timrjs/pull/13
 const notifier = require('node-notifier')
 const vorpal = require('vorpal')()
 const pkg = require('./package.json')
+const stats = require('piggy-bank')('stats.json')
 require('update-notifier')({pkg}).notify()
 
 // Default args if none provided
@@ -12,6 +13,7 @@ const defaultTime = '25:00'
 const chillTime = '05:00'
 
 let timerRunning = false
+let loop = false
 
 /**
  * Clear current line and write text to it
@@ -26,7 +28,7 @@ const clearLineAndWrite = (text) => {
  * Update terminal with current time
  */
 const performTick = (time, timer, type) => {
-  timer.ticker((formattedTime) => {
+  timer.ticker(({formattedTime}) => {
     if (!timerRunning) {
       timer.stop()
       clearLineAndWrite('🍅 ')
@@ -42,6 +44,8 @@ const performTick = (time, timer, type) => {
 const peformPomodoro = (time, chill, cb) => {
   timerRunning = true
 
+  stats.set('total', Number.parseInt(stats.get('total') || 0) + 1, {overwrite: true})
+
   // Setup session timer
   const timer = Timr(time)
   clearLineAndWrite(`🕐 ${time} - Session`)
@@ -50,6 +54,8 @@ const peformPomodoro = (time, chill, cb) => {
 
   // Start break when session is done
   timer.finish(() => {
+    stats.set('completed', Number.parseInt(stats.get('completed') || 0) + 1, { overwrite: true })
+
     notifier.notify({
       title: pkg.name,
       message: 'Pomodoro done!',
@@ -70,7 +76,11 @@ const peformPomodoro = (time, chill, cb) => {
         sound: true
       })
 
-      cb()
+      if (loop) {
+        peformPomodoro(time, chill, cb)
+      } else {
+        cb()
+      }
     })
   })
 }
@@ -79,8 +89,10 @@ vorpal
   .command('start', 'Start a Pomodoro')
   .autocomplete(['--time', '--chill'])
   .option('-t, --time <time>', 'Set the time of the Pomodoro. Default is 25:00 minutes.')
-  .option('-r, --chill <chill>', 'Set the time of chill. Default is 5:00 minutes.')
+  .option('-c, --chill <chill>', 'Set the time of chill. Default is 5:00 minutes.')
+  .option('-l, --loop', 'Run continues Pomodoros.')
   .action((args, cb) => {
+    if (args.options.loop) { loop = true }
     peformPomodoro(args.options.time || defaultTime, args.options.chill || chillTime, cb)
   })
   .cancel(() => {
@@ -88,5 +100,15 @@ vorpal
   })
 
 vorpal
-  .delimiter('🍅')
+  .command('stats', 'Show statistics from your Pomodoros.')
+  .action((args, cb) => {
+    const result = stats.get('total')
+      ? `\nYou have completed ${stats.get('completed') || 0} out of ${stats.get('total')} Pomodoros 🎉\n\n`
+      : `\nYou need to have done something to have stats!\n\n`
+    process.stdout.write(result)
+    cb()
+  })
+
+vorpal
+  .delimiter('🍅 ')
   .show()
