@@ -35,6 +35,6 @@
     "vorpal": "^1.11.4"
   },
   "devDependencies": {
-    "standard": "^8.6.0"
+    "standard": "^9.0.0"
   }
 }
