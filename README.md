@@ -29,6 +29,18 @@
 </div>
 <br>
 <div align="center">
+  <a href="https://github.com/tiaanduplessis/pomd/watchers">
+    <img src="https://img.shields.io/github/watchers/tiaanduplessis/pomd.svg?style=social" alt="Github Watch Badge" />
+  </a>
+  <a href="https://github.com/tiaanduplessis/pomd/stargazers">
+    <img src="https://img.shields.io/github/stars/tiaanduplessis/pomd.svg?style=social" alt="Github Star Badge" />
+  </a>
+  <a href="https://twitter.com/intent/tweet?text=Check%20out%20pomd!%20https://github.com/tiaanduplessis/pomd%20%F0%9F%91%8D">
+    <img src="https://img.shields.io/twitter/url/https/github.com/tiaanduplessis/pomd.svg?style=social" alt="Tweet" />
+  </a>
+</div>
+<br>
+<div align="center">
   Built with ❤︎ by <a href="tiaanduplessis.co.za">Tiaan</a> and <a href="https://github.com/tiaanduplessis/bolt-starter/graphs/contributors">contributors</a>
 </div>
 
