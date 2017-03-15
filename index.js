@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 'use strict'
 
-const Timr = require('./node_modules/timrjs/dist/timr') // https://github.com/joesmith100/timrjs/pull/13
+const Timr = require('timrjs')
 const path = require('path')
 const notifier = require('node-notifier')
 const vorpal = require('vorpal')()
