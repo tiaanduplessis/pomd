@@ -26,6 +26,18 @@
    <a href="http://packagequality.com/#?package=pomd">
       <img src="http://packagequality.com/shield/pomd.svg?style=flat-square" alt="Package Quality" />
    </a>
+   <a href="https://dependencyci.com/github/tiaanduplessis/pomd">
+    <img src="https://dependencyci.com/github/tiaanduplessis/pomd/badge?style=flat-square" alt="Dependency CI" />
+  </a>
+  <a href="https://github.com/tiaanduplessis/pomd/blob/master/other/LICENSE">
+    <img src="https://img.shields.io/npm/l/pomd.svg?style=flat-square" alt="License" />
+  </a>
+  <a href="http://makeapullrequest.com">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs" />
+  </a>
+  <a href="https://www.paypal.me/tiaanduplessis/1">
+    <img src="https://img.shields.io/badge/$-support-green.svg?style=flat-square" alt="Donate" />
+  </a>
 </div>
 <br>
 <div align="center">
