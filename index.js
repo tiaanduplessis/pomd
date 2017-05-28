@@ -42,16 +42,20 @@ const performTick = (time, timer, type) => {
 /**
  * Peform a Pomodoro session based on given args
  */
-const peformPomodoro = (time, chill, cb) => {
+const performPomodoro = (times, chills, index, cb) => {
   timerRunning = true
 
-  stats.set('total', Number.parseInt(stats.get('total') || 0) + 1, {overwrite: true})
+  const time = times[index]
+  const chill = chills[index]
+  const currentTick = `(${index + 1}/${times.length})`
 
+  stats.set('total', Number.parseInt(stats.get('total') || 0) + 1, { overwrite: true })
   // Setup session timer
   const timer = Timr(time)
-  clearLineAndWrite(`🕐 ${time} - Session`)
+  const sessionCurrentTick = `Session ${currentTick}`
+  clearLineAndWrite(`🕐 ${time} - ${sessionCurrentTick}`)
   timer.start()
-  performTick(time, timer, 'Session')
+  performTick(time, timer, sessionCurrentTick)
 
   // Start break when session is done
   timer.finish(() => {
@@ -59,26 +63,29 @@ const peformPomodoro = (time, chill, cb) => {
 
     notifier.notify({
       title: pkg.name,
-      message: 'Pomodoro done!',
+      message: `Pomodoro done! ${currentTick}`,
       sound: true // Only Notification Center or Windows Toasters
     })
 
     // Setup chill timer
     const timer = Timr(chill)
-    clearLineAndWrite(`🕐 ${chill} - chill`)
+    const chillCurrentTick = `Chill ${currentTick}`
+    clearLineAndWrite(`🕐 ${chill} - ${chillCurrentTick}`)
     timer.start()
-    performTick(chill, timer, 'chill')
+    performTick(chill, timer, chillCurrentTick)
 
     timer.finish(() => {
-      clearLineAndWrite('Done ✔︎\n')
+      clearLineAndWrite(`Done ✔︎ ${currentTick}`)
       notifier.notify({
         title: pkg.name,
-        message: 'Chill done!',
+        message: `Chill done! ${currentTick}`,
         sound: true
       })
 
-      if (loop) {
-        peformPomodoro(time, chill, cb)
+      if (times.length - 1 > index) {
+        performPomodoro(times, chills, index + 1, cb)
+      } else if (loop) {
+        performPomodoro(times, chills, 0, cb)
       } else {
         cb()
       }
@@ -91,10 +98,24 @@ vorpal
   .autocomplete(['--time', '--chill'])
   .option('-t, --time <time>', 'Set the time of the Pomodoro. Default is 25:00 minutes.')
   .option('-c, --chill <chill>', 'Set the time of chill. Default is 5:00 minutes.')
-  .option('-l, --loop', 'Run continues Pomodoros.')
+  .option('-l, --loop', 'Run continuous Pomodoros.')
   .action((args, cb) => {
+    let times = args.options.time
+    let chills = args.options.chill
+    if (!(times instanceof Array)) {
+      times = [times]
+    }
+    if (!(chills instanceof Array)) {
+      chills = [chills]
+    }
+
+    if (times.length !== chills.length) {
+      console.error(`Number of time and chill parameters must be equal. You have entered ${times.length} -t, and ${chills.length} -c.`)
+      process.exit(1)
+    }
+
     if (args.options.loop) { loop = true }
-    peformPomodoro(args.options.time || defaultTime, args.options.chill || chillTime, cb)
+    performPomodoro(args.options.time || defaultTime, args.options.chill || chillTime, 0, cb)
   })
   .cancel(() => {
     timerRunning = false

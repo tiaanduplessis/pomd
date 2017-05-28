@@ -130,6 +130,12 @@ The time can also be specified in a shorthand format:
 🍅 start -t 20m -c 3m
 ```
 
+You can also enter multiple time and chill parameters (e.g. Work 50 minutes, chill 10 minutes, work 50 minutes, chill 25 minutes, forever):
+
+```sh
+🍅 start -t 50m -c 10m -t 50m -c 25 --loop
+```
+
 ## Thanks to OSS
 
 pomd is made possible through Open Source Software. A very special thanks to all the modules pomd [uses](package.json).
