@@ -7,7 +7,7 @@ const notifier = require('node-notifier')
 const vorpal = require('vorpal')()
 const pkg = require('./package.json')
 const stats = require('piggy-bank')(path.join(require('os').homedir(), '.pomd.json'))
-require('update-notifier')({pkg}).notify()
+require('update-notifier')({ pkg }).notify()
 
 // Default args if none provided
 const defaultTime = '25:00'
@@ -19,7 +19,7 @@ let loop = false
 /**
  * Clear current line and write text to it
  */
-const clearLineAndWrite = (text) => {
+const clearLineAndWrite = text => {
   process.stdout.clearLine()
   process.stdout.cursorTo(0)
   process.stdout.write(text)
@@ -29,7 +29,7 @@ const clearLineAndWrite = (text) => {
  * Update terminal with current time
  */
 const performTick = (time, timer, type) => {
-  timer.ticker(({formattedTime}) => {
+  timer.ticker(({ formattedTime }) => {
     if (!timerRunning) {
       timer.stop()
       clearLineAndWrite('🍅 ')
@@ -100,8 +100,9 @@ vorpal
   .option('-c, --chill <chill>', 'Set the time of chill. Default is 5:00 minutes.')
   .option('-l, --loop', 'Run continuous Pomodoros.')
   .action((args, cb) => {
-    let times = args.options.time
-    let chills = args.options.chill
+    let times = args.options.time || [defaultTime]
+    let chills = args.options.chill || [chillTime]
+
     if (!(times instanceof Array)) {
       times = [times]
     }
@@ -110,27 +111,27 @@ vorpal
     }
 
     if (times.length !== chills.length) {
-      console.error(`Number of time and chill parameters must be equal. You have entered ${times.length} -t, and ${chills.length} -c.`)
-      process.exit(1)
+      console.error(
+        `Number of time and chill parameters must be equal. You have entered ${times.length} -t, and ${chills.length} -c.`
+      )
+      cb()
+    } else {
+      if (args.options.loop) {
+        loop = true
+      }
+      performPomodoro(times, chills, 0, cb)
     }
-
-    if (args.options.loop) { loop = true }
-    performPomodoro(args.options.time || defaultTime, args.options.chill || chillTime, 0, cb)
   })
   .cancel(() => {
     timerRunning = false
   })
 
-vorpal
-  .command('stats', 'Show statistics from your Pomodoros.')
-  .action((args, cb) => {
-    const result = stats.get('total')
-      ? `\nYou have completed ${stats.get('completed') || 0} out of ${stats.get('total')} Pomodoros 🎉\n\n`
-      : `\nYou need to have done something to have stats!\n\n`
-    process.stdout.write(result)
-    cb()
-  })
+vorpal.command('stats', 'Show statistics from your Pomodoros.').action((args, cb) => {
+  const result = stats.get('total')
+    ? `\nYou have completed ${stats.get('completed') || 0} out of ${stats.get('total')} Pomodoros 🎉\n\n`
+    : `\nYou need to have done something to have stats!\n\n`
+  process.stdout.write(result)
+  cb()
+})
 
-vorpal
-  .delimiter('🍅 ')
-  .show()
+vorpal.delimiter('🍅 ').show()
