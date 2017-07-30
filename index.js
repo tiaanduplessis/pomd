@@ -134,4 +134,8 @@ vorpal.command('stats', 'Show statistics from your Pomodoros.').action((args, cb
   cb()
 })
 
+vorpal
+  .on('client_command_executed', evt => process.exit(0))
+  .parse(process.argv)
+
 vorpal.delimiter('🍅 ').show()
