@@ -67,6 +67,8 @@
 
 ## Install
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/tiaanduplessis/pomd.svg)](https://greenkeeper.io/)
+
 ```sh
 $ npm install -g pomd
 ```
