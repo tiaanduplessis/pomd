@@ -30,7 +30,7 @@
   "license": "MIT",
   "dependencies": {
     "node-notifier": "^5.1.2",
-    "piggy-bank": "^1.0.0",
+    "piggy-bank": "^2.0.0",
     "timrjs": "^1.0.1",
     "update-notifier": "^2.2.0",
     "vorpal": "^1.12.0"
