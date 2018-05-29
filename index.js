@@ -1,13 +1,20 @@
 #! /usr/bin/env node
 'use strict'
 
+const path = require('path')
 const Timr = require('timrjs')
 const notifier = require('node-notifier')
 const vorpal = require('vorpal')()
 
-const {getStorePath, clearLineAndWrite} = require('./utils')
+const getStorePath = () => path.join(require('os').homedir(), '.pomd.json')
 const pkg = require('./package.json')
 const stats = require('piggy-bank')(getStorePath())
+
+const clearLineAndWrite = text => {
+  process.stdout.clearLine()
+  process.stdout.cursorTo(0)
+  process.stdout.write(text)
+}
 
 require('update-notifier')({ pkg }).notify()
 
