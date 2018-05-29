@@ -29,7 +29,7 @@ $ npm install -g pomd
 Or
 
 ```sh
-$ yarn add global pomd
+$ yarn global add pomd
 ```
 
 You can then run `pomd` from the terminal 🎉
