@@ -2,11 +2,13 @@
 'use strict'
 
 const Timr = require('timrjs')
-const path = require('path')
 const notifier = require('node-notifier')
 const vorpal = require('vorpal')()
+
+const {getStorePath, clearLineAndWrite} = require('./utils')
 const pkg = require('./package.json')
-const stats = require('piggy-bank')(path.join(require('os').homedir(), '.pomd.json'))
+const stats = require('piggy-bank')(getStorePath())
+
 require('update-notifier')({ pkg }).notify()
 
 // Default args if none provided
@@ -16,19 +18,7 @@ const chillTime = '05:00'
 let timerRunning = false
 let loop = false
 
-/**
- * Clear current line and write text to it
- */
-const clearLineAndWrite = text => {
-  process.stdout.clearLine()
-  process.stdout.cursorTo(0)
-  process.stdout.write(text)
-}
-
-/**
- * Update terminal with current time
- */
-const performTick = (time, timer, type) => {
+const renderTime = (time, timer, type) => {
   timer.ticker(({ formattedTime }) => {
     if (!timerRunning) {
       timer.stop()
@@ -39,9 +29,6 @@ const performTick = (time, timer, type) => {
   })
 }
 
-/**
- * Peform a Pomodoro session based on given args
- */
 const performPomodoro = (times, chills, index, cb) => {
   timerRunning = true
 
@@ -50,12 +37,13 @@ const performPomodoro = (times, chills, index, cb) => {
   const currentTick = `(${index + 1}/${times.length})`
 
   stats.set('total', Number.parseInt(stats.get('total') || 0) + 1, { overwrite: true })
+
   // Setup session timer
   const timer = Timr(time)
   const sessionCurrentTick = `Session ${currentTick}`
   clearLineAndWrite(`🕐 ${time} - ${sessionCurrentTick}`)
   timer.start()
-  performTick(time, timer, sessionCurrentTick)
+  renderTime(time, timer, sessionCurrentTick)
 
   // Start break when session is done
   timer.finish(() => {
@@ -64,7 +52,7 @@ const performPomodoro = (times, chills, index, cb) => {
     notifier.notify({
       title: pkg.name,
       message: `Pomodoro done! ${currentTick}`,
-      sound: true // Only Notification Center or Windows Toasters
+      sound: true
     })
 
     // Setup chill timer
@@ -72,7 +60,7 @@ const performPomodoro = (times, chills, index, cb) => {
     const chillCurrentTick = `Chill ${currentTick}`
     clearLineAndWrite(`🕐 ${chill} - ${chillCurrentTick}`)
     timer.start()
-    performTick(chill, timer, chillCurrentTick)
+    renderTime(chill, timer, chillCurrentTick)
 
     timer.finish(() => {
       clearLineAndWrite(`Done ✔︎ ${currentTick}`)
@@ -99,14 +87,14 @@ vorpal
   .option('-t, --time <time>', 'Set the time of the Pomodoro. Default is 25:00 minutes.')
   .option('-c, --chill <chill>', 'Set the time of chill. Default is 5:00 minutes.')
   .option('-l, --loop', 'Run continuous Pomodoros.')
-  .action((args, cb) => {
+  .action((args = {}, cb) => {
     let times = args.options.time || [defaultTime]
     let chills = args.options.chill || [chillTime]
 
-    if (!(times instanceof Array)) {
+    if (!Array.isArray(times)) {
       times = [times]
     }
-    if (!(chills instanceof Array)) {
+    if (!Array.isArray(chills)) {
       chills = [chills]
     }
 
@@ -116,9 +104,7 @@ vorpal
       )
       cb()
     } else {
-      if (args.options.loop) {
-        loop = true
-      }
+      loop = args.options.loop || false
       performPomodoro(times, chills, 0, cb)
     }
   })

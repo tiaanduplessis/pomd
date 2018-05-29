@@ -1,73 +1,26 @@
-<h1 align="center">🍅 pomd</h1>
-<br>
-<div align="center">
-  <strong>A good old cli based pomodoro timer with native notifactions</strong>
-</div>
-<br>
-<div align="center">
-    <a href="https://npmjs.org/package/pomd">
-      <img src="https://img.shields.io/npm/v/pomd.svg?style=flat-square" alt="NPM version" />
-    </a>
-    <a href="https://npmjs.org/package/pomd">
-    <img src="https://img.shields.io/npm/dm/pomd.svg?style=flat-square" alt="Downloads" />
-    </a>
-    <a href="https://github.com/feross/standard">
-      <img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square" alt="Standard" />
-    </a>
-    <a href="https://travis-ci.org/tiaanduplessis/pomd">
-      <img src="https://img.shields.io/travis/tiaanduplessis/pomd/master.svg?style=flat-square" alt="Travis Build" />
-    </a>
-    <a href="https://github.com/RichardLitt/standard-readme)">
-      <img src="https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square" alt="Standard Readme" />
-    </a>
-    <a href="https://badge.fury.io/gh/tiaanduplessis%2Fpomd">
-      <img src="https://badge.fury.io/gh/tiaanduplessis%2Fpomd.svg?style=flat-square" alt="GitHub version" />
-   </a>
-   <a href="http://packagequality.com/#?package=pomd">
-      <img src="http://packagequality.com/shield/pomd.svg?style=flat-square" alt="Package Quality" />
-   </a>
-   <a href="https://dependencyci.com/github/tiaanduplessis/pomd">
-    <img src="https://dependencyci.com/github/tiaanduplessis/pomd/badge?style=flat-square" alt="Dependency CI" />
-  </a>
-  <a href="https://github.com/tiaanduplessis/pomd/blob/master/other/LICENSE">
-    <img src="https://img.shields.io/npm/l/pomd.svg?style=flat-square" alt="License" />
-  </a>
-  <a href="http://makeapullrequest.com">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs" />
-  </a>
-  <a href="https://www.paypal.me/tiaanduplessis/1">
-    <img src="https://img.shields.io/badge/$-support-green.svg?style=flat-square" alt="Donate" />
-  </a>
-</div>
-<br>
-<div align="center">
-  <a href="https://github.com/tiaanduplessis/pomd/watchers">
-    <img src="https://img.shields.io/github/watchers/tiaanduplessis/pomd.svg?style=social" alt="Github Watch Badge" />
-  </a>
-  <a href="https://github.com/tiaanduplessis/pomd/stargazers">
-    <img src="https://img.shields.io/github/stars/tiaanduplessis/pomd.svg?style=social" alt="Github Star Badge" />
-  </a>
-  <a href="https://twitter.com/intent/tweet?text=Check%20out%20pomd!%20https://github.com/tiaanduplessis/pomd%20%F0%9F%91%8D">
-    <img src="https://img.shields.io/twitter/url/https/github.com/tiaanduplessis/pomd.svg?style=social" alt="Tweet" />
-  </a>
-</div>
-<br>
-<div align="center">
-  Built with ❤︎ by <a href="tiaanduplessis.co.za">Tiaan</a> and <a href="https://github.com/tiaanduplessis/bolt-starter/graphs/contributors">contributors</a>
-</div>
 
-<h2>Table of Contents</h2>
-<details>
-  <summary>Table of Contents</summary>
-  <li><a href="#install">Install</a></li>
-  <li><a href="#usage">Usage</a></li>
-  <li><a href="#contribute">Contribute</a></li>
-  <li><a href="#license">License</a></li>
-</details>
+# 🍅 pomd
+[![package version](https://img.shields.io/npm/v/pomd.svg?style=flat-square)](https://npmjs.org/package/pomd)
+[![package downloads](https://img.shields.io/npm/dm/pomd.svg?style=flat-square)](https://npmjs.org/package/pomd)
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+[![package license](https://img.shields.io/npm/l/pomd.svg?style=flat-square)](https://npmjs.org/package/pomd)
+[![make a pull request](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![Dependency CI](https://dependencyci.com/github/tiaanduplessis/pomd/badge?style=flat-square)](https://dependencyci.com/github/tiaanduplessis/pomd)
+[![Package Quality](http://packagequality.com/shield/pomd.svg?style=flat-square)](http://packagequality.com/#?package=pomd)
+[![Travis Build](https://img.shields.io/travis/tiaanduplessis/pomd/master.svg?style=flat-square)](https://travis-ci.org/tiaanduplessis/pomd)
+[![Standard](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/feross/standard)
+[![Greenkeeper badge](https://badges.greenkeeper.io/tiaanduplessis/pomd.svg)](https://greenkeeper.io/)
+
+> Just a good old cli based Pomodoro timer with native notifactions
+
+## Table of Contents
+
+- [Install](#install)
+- [Usage](#usage)
+- [Contribute](#contribute)
+- [License](#License)
+
 
 ## Install
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/tiaanduplessis/pomd.svg)](https://greenkeeper.io/)
 
 ```sh
 $ npm install -g pomd
@@ -79,7 +32,7 @@ Or
 $ yarn add global pomd
 ```
 
-You can then run `pomd` from the terminal! 🎉
+You can then run `pomd` from the terminal 🎉
 
 ## Usage
 
@@ -138,16 +91,15 @@ You can also enter multiple time and chill parameters (e.g. Work 50 minutes, chi
 🍅 start -t 50m -c 10m -t 50m -c 25 --loop
 ```
 
-## Thanks to OSS
-
-pomd is made possible through Open Source Software. A very special thanks to all the modules pomd [uses](package.json).
 
 ## Contribute
 
-Contributions are welcome. Please open up an issue or create PR if you would like to help out.
-
-Note: If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
+1. Fork it and create your feature branch: git checkout -b my-new-feature
+2. Commit your changes: git commit -am 'Add some feature'
+3. Push to the branch: git push origin my-new-feature 
+4. Submit a pull request
 
 ## License
 
-Licensed under the MIT License.
+MIT
+    

@@ -9,10 +9,8 @@
   },
   "scripts": {
     "start": "node .",
-    "lint": "standard",
-    "lint:fix": "standard --fix",
-    "test": "npm run lint",
-    "format": "prettier --print-width 100 --semi false --single-quote --write index.js"
+    "lint": "standard --fix",
+    "test": "npm run lint"
   },
   "bin": {
     "pomd": "index.js"
@@ -29,14 +27,13 @@
   "author": "Tiaan <tiaanduplessis@hotmail.com>",
   "license": "MIT",
   "dependencies": {
-    "node-notifier": "^5.1.2",
+    "node-notifier": "^5.2.1",
     "piggy-bank": "^2.0.0",
     "timrjs": "^1.0.1",
-    "update-notifier": "^2.2.0",
+    "update-notifier": "^2.5.0",
     "vorpal": "^1.12.0"
   },
   "devDependencies": {
-    "prettier": "^1.5.3",
-    "standard": "^11.0.0"
+    "standard": "^11.0.1"
   }
 }
