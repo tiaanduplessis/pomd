@@ -41,8 +41,8 @@ const renderTime = (time, timer, type) => {
 const performPomodoro = (times, chills, index, cb) => {
   timerRunning = true
 
-  const time = times[index]
-  const chill = chills[index]
+  const time = times[index] || times[0]
+  const chill = chills[index] || chills[0]
   const currentTick = `(${index + 1}/${repeatTime})`
   // const currentTick = `(${index + 1}/${times.length})`
 
@@ -122,7 +122,7 @@ vorpal
       cb()
     } else {
       // Debug
-      clearLineAndWrite(`♻️ ${repeatTime}`)
+      clearLineAndWrite(`🛠 debug passing in repeat time ${repeatTime}`)
       performPomodoro(times, chills, 0, cb)
     }
   })
