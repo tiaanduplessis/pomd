@@ -41,9 +41,9 @@ const renderTime = (time, timer, type) => {
 const performPomodoro = (times, chills, index, cb) => {
   timerRunning = true
 
-  const time = times[index] || times[0]
-  const chill = chills[index] || chills[0]
-  const currentTick = `(${index + 1}/${repeatTime})`
+  const time = times[index] || times[repeatTime % index]
+  const chill = chills[index] || chills[repeatTime % index]
+  const currentTick = `(${index + 1}/${repeatTime * times.length})`
   // const currentTick = `(${index + 1}/${times.length})`
 
   stats.set('total', Number.parseInt(stats.get('total') || 0) + 1, { overwrite: true })
@@ -66,8 +66,6 @@ const performPomodoro = (times, chills, index, cb) => {
       sound: true
     })
 
-    clearLineAndWrite(`🐜 repeat: ${repeatTime}`)
-
     // Setup chill timer
     const timer = Timr(chill)
     const chillCurrentTick = `Chill ${currentTick}`
@@ -83,12 +81,11 @@ const performPomodoro = (times, chills, index, cb) => {
         sound: true
       })
 
-      clearLineAndWrite(`♻️ repeatTime: ${repeatTime} 🧐 time: ${time}`)
+      clearLineAndWrite(`♻️ repeatTime: ${repeatTime} 🧐 loop: ${loop}`)
 
       if (index < repeatTime - 1) {
-      // if (times.length - 1 > index) {
         performPomodoro(times, chills, index + 1, cb)
-      } else if (repeatTime == 0) {
+      } else if (loop) {
         performPomodoro(times, chills, 0, cb)
       } else {
         cb()
@@ -102,11 +99,11 @@ vorpal
   .autocomplete(['--time', '--chill', '--repeat'])
   .option('-t, --time <time>', 'Set the time of the Pomodoro. Default is 25:00 minutes.')
   .option('-c, --chill <chill>', 'Set the time of chill. Default is 5:00 minutes.')
-  .option('-r, --repeat <repeat>', 'Run x Pomodoros. Default is 1. To run continuous Pomodoros, set to 0')
+  .option('-r, --repeat <repeat>', 'Repeat Pomodoro x times. Default is 1')
+  .option('-l, --loop', 'Run Pomodoros forever.')
   .action((args = {}, cb) => {
     let times = args.options.time || [defaultTime]
     let chills = args.options.chill || [chillTime]
-    repeatTime = args.options.repeat || defaultRepeat
 
     if (!Array.isArray(times)) {
       times = [times]
@@ -121,8 +118,8 @@ vorpal
       )
       cb()
     } else {
-      // Debug
-      clearLineAndWrite(`🛠 debug passing in repeat time ${repeatTime}`)
+      repeatTime = args.options.repeat || defaultRepeat
+      loop = args.options.loop || false
       performPomodoro(times, chills, 0, cb)
     }
   })
