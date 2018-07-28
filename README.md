@@ -74,7 +74,7 @@ You can then type `help` to get all the options.
 #   -l, --loop             Run Pomodoros forever.
 ```
 
-You can then start Pomodoros of 20 minutes with a 3 minute break, repeated 6 times:
+You can then start Pomodoros of 20 minutes with 3 minutes break, repeated 6 times:
 
 ```sh
 🍅 start --time 20:00 --chill 03:00 --repeat 6
@@ -86,10 +86,16 @@ The time can also be specified in a shorthand format:
 🍅 start -t 20m -c 3m -r 6
 ```
 
+Pomodero can run infinitely:
+
+```sh
+🍅 start -t 20m -c 3m --loop
+```
+
 You can also enter multiple time and chill parameters (e.g. Work 50 minutes, chill 10 minutes, work 50 minutes, chill 25 minutes, forever):
 
 ```sh
-🍅 start -t 50m -c 10m -t 50m -c 25 --loop
+🍅 start -t 50m -c 10m -t 50m -c 25 -l
 ```
 
 

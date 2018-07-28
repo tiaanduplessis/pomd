@@ -57,8 +57,7 @@ const performPomodoro = (times, chills, index, cb) => {
     clearLineAndWrite(`🕐 ${time} - ${sessionCurrentTick} ∞`)
   } else {
     clearLineAndWrite(`🕐 ${time} - ${sessionCurrentTick}`)
-  }
-  
+  } 
 
   timer.start()
   renderTime(time, timer, sessionCurrentTick)
@@ -76,7 +75,12 @@ const performPomodoro = (times, chills, index, cb) => {
     // Setup chill timer
     const timer = Timr(chill)
     const chillCurrentTick = `Chill ${currentTick}`
-    clearLineAndWrite(`🕐 ${chill} - ${chillCurrentTick}`)
+
+    if (loop) {
+      clearLineAndWrite(`🕐 ${chill} - ${chillCurrentTick} ∞`)
+    } else {
+      clearLineAndWrite(`🕐 ${chill} - ${chillCurrentTick}`)
+    }
     timer.start()
     renderTime(chill, timer, chillCurrentTick)
 
