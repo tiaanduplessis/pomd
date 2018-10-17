@@ -21,15 +21,19 @@ require('update-notifier')({ pkg }).notify()
 // Default args if none provided
 const defaultTime = '25:00'
 const chillTime = '05:00'
+const defaultRepeat = 1
 
 let timerRunning = false
 let loop = false
+let repeatTime = defaultRepeat
 
 const renderTime = (time, timer, type) => {
   timer.ticker(({ formattedTime }) => {
     if (!timerRunning) {
       timer.stop()
       clearLineAndWrite('🍅 ')
+    } else if (loop) {
+      clearLineAndWrite(`🕐 ${formattedTime} - ${type} ∞`)
     } else {
       clearLineAndWrite(`🕐 ${formattedTime} - ${type}`)
     }
@@ -39,16 +43,22 @@ const renderTime = (time, timer, type) => {
 const performPomodoro = (times, chills, index, cb) => {
   timerRunning = true
 
-  const time = times[index]
-  const chill = chills[index]
-  const currentTick = `(${index + 1}/${times.length})`
+  const time = times[index] || times[repeatTime % index] || times[index % repeatTime]
+  const chill = chills[index] || chills[repeatTime % index] || chills[index % repeatTime]
+  const currentTick = `(${index + 1}/${repeatTime * times.length})`
 
   stats.set('total', Number.parseInt(stats.get('total') || 0) + 1, { overwrite: true })
 
   // Setup session timer
   const timer = Timr(time)
   const sessionCurrentTick = `Session ${currentTick}`
-  clearLineAndWrite(`🕐 ${time} - ${sessionCurrentTick}`)
+
+  if (loop) {
+    clearLineAndWrite(`🕐 ${time} - ${sessionCurrentTick} ∞`)
+  } else {
+    clearLineAndWrite(`🕐 ${time} - ${sessionCurrentTick}`)
+  } 
+
   timer.start()
   renderTime(time, timer, sessionCurrentTick)
 
@@ -65,7 +75,12 @@ const performPomodoro = (times, chills, index, cb) => {
     // Setup chill timer
     const timer = Timr(chill)
     const chillCurrentTick = `Chill ${currentTick}`
-    clearLineAndWrite(`🕐 ${chill} - ${chillCurrentTick}`)
+
+    if (loop) {
+      clearLineAndWrite(`🕐 ${chill} - ${chillCurrentTick} ∞`)
+    } else {
+      clearLineAndWrite(`🕐 ${chill} - ${chillCurrentTick}`)
+    }
     timer.start()
     renderTime(chill, timer, chillCurrentTick)
 
@@ -77,7 +92,7 @@ const performPomodoro = (times, chills, index, cb) => {
         sound: true
       })
 
-      if (times.length - 1 > index) {
+      if (index < repeatTime - 1) {
         performPomodoro(times, chills, index + 1, cb)
       } else if (loop) {
         performPomodoro(times, chills, 0, cb)
@@ -90,10 +105,11 @@ const performPomodoro = (times, chills, index, cb) => {
 
 vorpal
   .command('start', 'Start a Pomodoro')
-  .autocomplete(['--time', '--chill'])
+  .autocomplete(['--time', '--chill', '--repeat'])
   .option('-t, --time <time>', 'Set the time of the Pomodoro. Default is 25:00 minutes.')
   .option('-c, --chill <chill>', 'Set the time of chill. Default is 5:00 minutes.')
-  .option('-l, --loop', 'Run continuous Pomodoros.')
+  .option('-r, --repeat <repeat>', 'Repeat Pomodoro x times. Default is 1')
+  .option('-l, --loop', 'Run Pomodoros forever.')
   .action((args = {}, cb) => {
     let times = args.options.time || [defaultTime]
     let chills = args.options.chill || [chillTime]
@@ -111,6 +127,7 @@ vorpal
       )
       cb()
     } else {
+      repeatTime = args.options.repeat || defaultRepeat
       loop = args.options.loop || false
       performPomodoro(times, chills, 0, cb)
     }

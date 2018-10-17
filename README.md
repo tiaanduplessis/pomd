@@ -67,28 +67,35 @@ You can then type `help` to get all the options.
 #
 # Options:
 #
-#   --help               output usage information
-#   -t, --time <time>    Set the time of the Pomodoro. Default is 25:00 minutes.
-#   -c, --chill <chill>  Set the time of chill. Default is 5:00 minutes.
-#   -l, --loop           Run continues Pomodoros.
+#   --help                 output usage information
+#   -t, --time <time>      Set the time of the Pomodoro. Default is 25:00 minutes.
+#   -c, --chill <chill>    Set the time of chill. Default is 5:00 minutes.
+#   -r, --repeat <repeat>  Repeat Pomodero x times. Default is 1.
+#   -l, --loop             Run Pomodoros forever.
 ```
 
-You can then start continues Pomodoros of 20 minutes with 3 minute breaks:
+You can then start Pomodoros of 20 minutes with 3 minutes break, repeated 6 times:
 
 ```sh
-🍅 start --time 20:00 --chill 03:00
+🍅 start --time 20:00 --chill 03:00 --repeat 6
 ```
 
 The time can also be specified in a shorthand format:
 
 ```sh
-🍅 start -t 20m -c 3m
+🍅 start -t 20m -c 3m -r 6
+```
+
+Pomodero can run infinitely:
+
+```sh
+🍅 start -t 20m -c 3m --loop
 ```
 
 You can also enter multiple time and chill parameters (e.g. Work 50 minutes, chill 10 minutes, work 50 minutes, chill 25 minutes, forever):
 
 ```sh
-🍅 start -t 50m -c 10m -t 50m -c 25 --loop
+🍅 start -t 50m -c 10m -t 50m -c 25 -l
 ```
 
 
