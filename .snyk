@@ -27,3 +27,15 @@ patch:
         patched: '2019-08-04T19:02:47.397Z'
     - snyk > @snyk/dep-graph > graphlib > lodash:
         patched: '2019-08-04T19:02:47.397Z'
+    - snyk > snyk-nuget-plugin > dotnet-deps-parser > lodash:
+        patched: '2019-09-25T20:19:24.018Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-09-25T20:19:24.018Z'
+    - snyk > snyk-config > lodash:
+        patched: '2019-09-25T20:19:24.018Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-09-25T20:19:24.018Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2019-09-25T20:19:24.018Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2019-09-25T20:19:24.018Z'
