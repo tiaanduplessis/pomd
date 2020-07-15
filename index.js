@@ -22,20 +22,28 @@ require('update-notifier')({ pkg }).notify()
 const defaultTime = '25:00'
 const chillTime = '05:00'
 const defaultRepeat = 1
+const clocks = [
+  '🕐', '🕑', '🕒', '🕓', '🕔', '🕕', '🕖', '🕗', '🕘', '🕙', '🕚', '🕛'
+]
 
 let timerRunning = false
 let loop = false
 let repeatTime = defaultRepeat
 
+const renderClock = (percentDone) => (
+  clocks[parseInt(clocks.length * (percentDone / 100))]
+)
+
 const renderTime = (time, timer, type) => {
-  timer.ticker(({ formattedTime }) => {
+  timer.ticker(({ percentDone, formattedTime }) => {
+    timer.formattedTime
     if (!timerRunning) {
       timer.stop()
       clearLineAndWrite('🍅 ')
     } else if (loop) {
-      clearLineAndWrite(`🕐 ${formattedTime} - ${type} ∞`)
+      clearLineAndWrite(`${renderClock(percentDone)} ${formattedTime} - ${type} ∞`)
     } else {
-      clearLineAndWrite(`🕐 ${formattedTime} - ${type}`)
+      clearLineAndWrite(`${renderClock(percentDone)} ${formattedTime} - ${type}`)
     }
   })
 }
@@ -54,10 +62,10 @@ const performPomodoro = (times, chills, index, cb) => {
   const sessionCurrentTick = `Session ${currentTick}`
 
   if (loop) {
-    clearLineAndWrite(`🕐 ${time} - ${sessionCurrentTick} ∞`)
+    clearLineAndWrite(`${renderClock(0)} ${time} - ${sessionCurrentTick} ∞`)
   } else {
-    clearLineAndWrite(`🕐 ${time} - ${sessionCurrentTick}`)
-  } 
+    clearLineAndWrite(`${renderClock(0)} ${time} - ${sessionCurrentTick}`)
+  }
 
   timer.start()
   renderTime(time, timer, sessionCurrentTick)
@@ -77,9 +85,9 @@ const performPomodoro = (times, chills, index, cb) => {
     const chillCurrentTick = `Chill ${currentTick}`
 
     if (loop) {
-      clearLineAndWrite(`🕐 ${chill} - ${chillCurrentTick} ∞`)
+      clearLineAndWrite(`${renderClock(0)} ${chill} - ${chillCurrentTick} ∞`)
     } else {
-      clearLineAndWrite(`🕐 ${chill} - ${chillCurrentTick}`)
+      clearLineAndWrite(`${renderClock(0)} ${chill} - ${chillCurrentTick}`)
     }
     timer.start()
     renderTime(chill, timer, chillCurrentTick)
