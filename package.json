@@ -37,7 +37,7 @@
     "update-notifier": "^4.0.0"
   },
   "devDependencies": {
-    "standard": "14.3.1"
+    "standard": "17.1.2"
   },
   "snyk": true
 }
